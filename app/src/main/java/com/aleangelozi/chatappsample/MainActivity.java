@@ -6,10 +6,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import zendesk.chat.Chat;
-import zendesk.chat.ChatConfiguration;
-import zendesk.chat.ChatEngine;
-import zendesk.chat.PreChatFormFieldStatus;
-import zendesk.messaging.MessagingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,23 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button mChatButton = findViewById(R.id.chat_button);
 
-        mChatButton.setOnClickListener(v -> initializeChatSdk());
-    }
+        ChatZendesk chat = new ChatZendesk();
 
-    private void initializeChatSdk() {
-
-        ChatConfiguration chatConfiguration = ChatConfiguration.builder()
-                .withPreChatFormEnabled(true)
-                .withTranscriptEnabled(true)
-                .withNameFieldStatus(PreChatFormFieldStatus.HIDDEN)
-                .withEmailFieldStatus(PreChatFormFieldStatus.HIDDEN)
-                .withPhoneFieldStatus(PreChatFormFieldStatus.HIDDEN)
-                .withDepartmentFieldStatus(PreChatFormFieldStatus.HIDDEN)
-                .build();
-
-        MessagingActivity.builder()
-                .withEngines(ChatEngine.engine())
-                .show(this, chatConfiguration);
+        mChatButton.setOnClickListener(v -> chat.initializeChatSdk(this));
     }
 
 }
