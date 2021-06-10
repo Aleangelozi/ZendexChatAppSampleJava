@@ -36,7 +36,7 @@ public class ChatZendesk {
 
     }
 
-    public void initVisitorInfo() {
+    private void initVisitorInfo() {
         String name = "Josh";
         String email = "canada@canada.com";
 
@@ -45,27 +45,27 @@ public class ChatZendesk {
         final ObservationScope observationScope = new ObservationScope();
         Chat.INSTANCE.providers().chatProvider().observeChatState(observationScope,
                 new Observer<ChatState>() {
-            @Override
-            public void update(ChatState chatState) {
-                ChatSessionStatus chatStatus = chatState.getChatSessionStatus();
+                    @Override
+                    public void update(ChatState chatState) {
+                        ChatSessionStatus chatStatus = chatState.getChatSessionStatus();
 
-                if (chatStatus == ChatSessionStatus.INITIALIZING) {
-                    if (!visitorSet) {
+                        if (chatStatus == ChatSessionStatus.INITIALIZING) {
+                            if (!visitorSet) {
 
-                        profileProvider.setVisitorInfo(setVisitorInfo(name, email), null);
-                        visitorSet = true;
+                                profileProvider.setVisitorInfo(setVisitorInfo(name, email), null);
+                                visitorSet = true;
+                            }
+                        } else {
+
+                            profileProvider.setVisitorInfo(setVisitorInfo(name, email), null);
+                            visitorSet = true;
+                        }
                     }
-                } else {
-
-                    profileProvider.setVisitorInfo(setVisitorInfo(name, email), null);
-                    visitorSet = true;
-                }
-            }
-        });
+                });
 
     }
 
-    public VisitorInfo setVisitorInfo(String name, String email) {
+    private VisitorInfo setVisitorInfo(String name, String email) {
 
         return VisitorInfo.builder()
                 .withName(name)
