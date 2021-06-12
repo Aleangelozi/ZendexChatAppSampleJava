@@ -16,8 +16,18 @@ import zendesk.messaging.MessagingActivity;
 
 public class ChatZendesk {
     private boolean visitorSet = false;
+    private Context chatContext;
 
-    public void initializeChatSdk(Context context) {
+    public ChatZendesk(Context context) {
+         chatContext = context;
+    }
+
+
+    public void initChatZenDesk() {
+        Chat.INSTANCE.init(chatContext, BuildConfig.ZENDESK_CHAT_ACCOUNT_KEY);
+    }
+
+    public void openChat() {
 
         initVisitorInfo();
 
@@ -32,7 +42,7 @@ public class ChatZendesk {
 
         MessagingActivity.builder()
                 .withEngines(ChatEngine.engine())
-                .show(context, chatConfiguration);
+                .show(chatContext, chatConfiguration);
 
     }
 
